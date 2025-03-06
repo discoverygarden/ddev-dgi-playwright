@@ -60,6 +60,7 @@ pre_install_actions:
 # by this add-on, or removal could remove things that are not owned by it
 project_files:
   - commands/host/playwright-ui
+  - commands/host/install-dgi-playwright
   - playwright
   # - docker-compose.addon-template.yaml
   # - commands/web/add-on-command
