@@ -1,0 +1,13 @@
+#!/bin/bash
+#ddev-generated
+
+mkdir -p test/playwright
+ddev exec -d /var/www/html/test/playwright npx create-playwright@latest --quiet --install-deps
+cp -R .ddev/playwright/tests test/playwright
+cp .ddev/playwright/playwright.config.ts test/playwright
+
+# ddev errors out on subsequent builds if we symlink these files. Instead, we
+# copy them each time.
+echo "Rebuilding web service with playwright dependencies..."
+cp .ddev/web-build/disabled.Dockerfile.playwright .ddev/web-build/Dockerfile.playwright
+ddev restart
