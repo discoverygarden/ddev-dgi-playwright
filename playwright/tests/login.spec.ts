@@ -20,6 +20,7 @@ test('Test Islandora Logout', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'islandora' })).toBeDefined();
 
     await page.goto('user/logout');
+    await page.getByRole('button', { name: 'Log out' }).click();
 
     await page.goto('?check_logged_in=1');
     await expect(page.getByText('To log in to this site, your browser must accept cookies from the domain')).toBeVisible();

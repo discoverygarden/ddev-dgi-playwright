@@ -27,7 +27,7 @@ test('Ingest Test with Media and Solr Search Results', async ({ page }) => {
         page.selectOption('#edit-field-model', { label: 'Image' })
     ]);
 
-    await page.getByRole('button', { name: 'Save' }).click()
+    await page.locator('#edit-gin-sticky-actions').getByRole('button', { name: 'Save' }).click();
 
     await page.waitForURL('**/media/add/image*');
 
@@ -40,13 +40,13 @@ test('Ingest Test with Media and Solr Search Results', async ({ page }) => {
         ),
         await page.getByLabel('Add a new file').setInputFiles(path.join(__dirname, 'brandonface.jpg'))
     ]);
-    await page.getByRole('button', { name: 'Save' }).click();
+    await page.locator('#edit-gin-sticky-actions').getByRole('button', { name: 'Save' }).click();
 
     await page.waitForURL('**/test-object*');
-    await expect(page.getByText('Image Test Object With Media has been created')).toBeVisible();
+    await expect(page.getByLabel('Status message').getByText('Image')).toContainText('Image Test Object with Media has been created');
     await page.getByRole('link', { name: 'Media', exact: true}).click();
-    await expect(page.getByRole('cell', { name: '-Thumbnail Image.jpg' })).toBeVisible();
-    await expect(page.getByRole('cell', { name: '-Service File.jp2' })).toBeVisible();
+    await expect(page.getByRole('cell', { name: /[0-9]+-Thumbnail Image.jpg$/i })).toBeVisible();
+    await expect(page.getByRole('cell', { name: /[0-9]+-Service File.jp2$/i })).toBeVisible();
     await page.getByRole('link', { name: 'Home' }).click();
     await page.getByLabel('Search all collections and').click();
     await page.getByLabel('Search all collections and').fill('Test Object');
@@ -54,7 +54,7 @@ test('Ingest Test with Media and Solr Search Results', async ({ page }) => {
     await page.waitForURL('**/solr-search/content/grid*');
 
     // Ensure that "Test Object" appears on the page.
-    const elements = page.locator("span[class='page-title']").filter({ hasText: /^Test Object$/ });
+    const elements = page.locator("span[class='page-title']").filter({ hasText: /^Test Object with Media$/ });
     const count = await elements.count();
     expect(count).toBeGreaterThan(0);
 
@@ -77,8 +77,7 @@ test('Ingest Test Image without Media', async ({ page }) => {
     ]);
 
     await page.getByLabel('Add media').uncheck();
-    await page.getByRole('button', { name: 'Save' }).click()
-
+    await page.locator('#edit-gin-sticky-actions').getByRole('button', { name: 'Save' }).click();
 
     await expect(page.getByText('Test Object - Without Media has been created.')).toBeVisible();
 
@@ -101,9 +100,9 @@ test('Ingest and Delete Node', async ({ page }) => {
     ]);
 
     await page.getByLabel('Add media').uncheck();
-    await page.getByRole('button', { name: 'Save' }).click()
+    await page.locator('#edit-gin-sticky-actions').getByRole('button', { name: 'Save' }).click();
 
-    await expect(page.getByText('Test Object - To Delete has been created.')).toBeVisible();
+    await expect(page.getByRole('paragraph').getByText('Test Object - To Delete has been created.')).toBeVisible();
 
     const error = page.locator("div.alert.alert-danger.alert-dismissible");
     const errorCount = await error.count();
