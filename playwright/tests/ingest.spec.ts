@@ -45,8 +45,8 @@ test('Ingest Test with Media and Solr Search Results', async ({ page }) => {
     await page.waitForURL('**/test-object*');
     await expect(page.getByLabel('Status message').getByText('Image')).toContainText('Image Test Object with Media has been created');
     await page.getByRole('link', { name: 'Media', exact: true}).click();
-    await expect(page.getByRole('cell', { name: /[0-9]+-Thumbnail Image.jpg$/i })).toBeVisible();
-    await expect(page.getByRole('cell', { name: /[0-9]+-Service File.jp2$/i })).toBeVisible();
+    await expect(page.getByRole('cell', { name: /^[0-9]+-Thumbnail Image.jpg$/i })).toBeVisible();
+    await expect(page.getByRole('cell', { name: /^[0-9]+-Service File.jp2$/i })).toBeVisible();
     await page.getByRole('link', { name: 'Home' }).click();
     await page.getByLabel('Search all collections and').click();
     await page.getByLabel('Search all collections and').fill('Test Object');
@@ -79,7 +79,7 @@ test('Ingest Test Image without Media', async ({ page }) => {
     await page.getByLabel('Add media').uncheck();
     await page.locator('#edit-gin-sticky-actions').getByRole('button', { name: 'Save' }).click();
 
-    await expect(page.getByText('Test Object - Without Media has been created.')).toBeVisible();
+    await expect(page.getByLabel('Status message').getByText('Test Object - Without Media has been created.')).toBeVisible();
 
     const error = page.locator("div.alert.alert-danger.alert-dismissible");
     const errorCount = await error.count();

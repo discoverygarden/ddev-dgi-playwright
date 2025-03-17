@@ -16,12 +16,16 @@ test.beforeEach(async ({ page }) => {
 
 test('Content View Display', async ({ page }) => {
     await page.goto('test-display');
+
+    await page.waitForURL('**/test-display');
     // Looking for Object Title display
-    expect(page.getByRole('heading', { name: 'Test Display' }).locator('span')).toBeVisible();
+    await expect(page.getByRole('heading', { name: /^Test Display$/ })).toBeVisible();
+
     // Looking for object display (Image in this case).
-    //expect(page.locator('canvas')).toBeVisible();
+    await expect(page.locator('canvas')).toBeVisible();
+
     // Checking for metadata display.
-    expect(page.locator("section[id='block-views-block-repository-item-metadata-block-1']")).toBeVisible();
+    await expect(page.locator("section[id='block-views-block-repository-item-metadata-block-1']")).toBeVisible();
 });
 
 test('Solr Search Display - Grid', async ({ page }) => {
