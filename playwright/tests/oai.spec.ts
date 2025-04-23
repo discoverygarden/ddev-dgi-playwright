@@ -22,8 +22,13 @@ test('OAI-PMH Records and Endpoint', async ({ page }) => {
     // Check to see if OAI-PMH Record can be succesfully rebuilt.
     await expect(page.getByLabel('Status message').getByText('Successfully rebuilt your OAI')).toBeVisible();
 
-    await page.goto('oai/request?verb=ListRecords&metadataPrefix=oai_dc');
-
+    // Ensure page can be loaded before navigating.
     const response = await page.request.get('oai/request?verb=ListRecords&metadataPrefix=oai_dc');
     await expect(response).toBeOK();
+    await page.goto('oai/request?verb=ListRecords&metadataPrefix=oai_dc');
+
+    // Validate the response contains expected OAI-PMH elements
+    const responseBody = await response.text();
+    await expect(responseBody).toContain('<OAI-PMH');
+    await expect(responseBody).toContain('<ListRecords>');
 });
