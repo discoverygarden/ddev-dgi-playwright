@@ -19,7 +19,13 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('Dgi Fixity', async ({ page }) => {
-    // WORK IN PROGRESS
+    // Verify fixity configuration page loads.
     const response = await page.request.get('admin/config/fixity');
     await expect(response).toBeOK();
+
+    // Check if we can navigate to the fixity UI
+    await page.goto('admin/config/fixity');
+    await expect(page.getByRole('heading', { name: 'Fixity' })).toBeVisible();
+
+    // TODO: Add tests to verify fixity audit functionality
 });
