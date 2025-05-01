@@ -1,4 +1,4 @@
-[![tests](https://github.com/ddev/ddev-addon-template/actions/workflows/tests.yml/badge.svg)](https://github.com/ddev/ddev-addon-template/actions/workflows/tests.yml) ![project is maintained](https://img.shields.io/maintenance/yes/2025.svg)
+[![tests](https://github.com/discoverygarden/ddev-dgi-playwright/actions/workflows/tests.yml/badge.svg)](https://github.com/discoverygarden/ddev-dgi-playwright/actions/workflows/tests.yml) ![project is maintained](https://img.shields.io/maintenance/yes/2025.svg)
 
 # DGI-PLAYWRIGHT
 Playwright integration for DGI projects, adapted from and using [Lullabot/ddev-playwright](https://github.com/Lullabot/ddev-playwright).
