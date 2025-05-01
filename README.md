@@ -25,5 +25,6 @@ ddev playwright codegen
 ```
 
 ## Additional Resources
-[Playwright basic usage docs](https://playwright.dev/docs/intro)
-[Lullabot/ddev-playwright](https://github.com/Lullabot/ddev-playwright)
+
+* [Playwright basic usage docs](https://playwright.dev/docs/intro)
+* [Lullabot/ddev-playwright](https://github.com/Lullabot/ddev-playwright)
