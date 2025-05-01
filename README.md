@@ -1,7 +1,7 @@
 [![tests](https://github.com/ddev/ddev-addon-template/actions/workflows/tests.yml/badge.svg)](https://github.com/ddev/ddev-addon-template/actions/workflows/tests.yml) ![project is maintained](https://img.shields.io/maintenance/yes/2025.svg)
 
 # DGI-PLAYWRIGHT
-Implements dgi specific additions to the Lullabot playwright 
+Playwright integration for DGI projects, adapted from and using [Lullabot/ddev-playwright](https://github.com/Lullabot/ddev-playwright).
 ## Enable
 Following part of the initial instructions outlined at Lullabot/ddev-playwright, which looks like:
 ```
