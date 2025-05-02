@@ -1,9 +1,6 @@
 import { test, expect } from '@playwright/test';
 import * as path from 'path';
 
-test.use({
-    ignoreHTTPSErrors: true
-});
 
 test.beforeEach(async ({ page }) => {
     await page.goto('user');
