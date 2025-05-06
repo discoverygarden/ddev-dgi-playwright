@@ -2,6 +2,7 @@
 #ddev-generated
 
 mkdir -p test/playwright
+# Providing --yes and --quiet flags in order to install without prompts.
 ddev exec -d /var/www/html/test/playwright npx --yes create-playwright@latest --quiet --install-deps
 cp -R .ddev/playwright/tests test/playwright
 cp .ddev/playwright/playwright.config.ts test/playwright
