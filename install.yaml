@@ -104,7 +104,6 @@ post_install_actions:
 # removal_actions are executed in the context of the target project's .ddev directory.
 removal_actions:
 - if grep "#ddev-generated" web-build/Dockerfile.playwright 2>/dev/null; then rm web-build/Dockerfile.playwright; fi
-- if grep "#ddev-generated" test/playwright/.gitkeep 2>/dev/null; then rm -rf test/playwright; fi
 
 # Advanced usage - YAML files can be read in and then used as go template actions
 # in pre_install_actions and post_install_actions
