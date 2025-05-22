@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 import * as path from 'path';
 
-
 test.beforeEach(async ({ page }) => {
     await page.goto('user');
     await page.getByLabel('Username').click();
