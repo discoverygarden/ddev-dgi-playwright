@@ -3,9 +3,9 @@
 # DGI-PLAYWRIGHT
 Playwright integration for DGI projects, adapted from and using [Lullabot/ddev-playwright](https://github.com/Lullabot/ddev-playwright).
 ## Enable
-Following part of the initial instructions outlined at Lullabot/ddev-playwright, which looks like:
+Setup process should be straight forward. Download add-on, run install script, and tests will be immediately accessible to run:
 ```
-ddev add-on get Lullabot/ddev-playwright
+# Installs the add-on
 ddev add-on get discoverygarden/ddev-dgi-playwright
 
 # Installs playwright with dgi additions
@@ -17,7 +17,7 @@ ddev install-dgi-playwright
 # Runs playwright using playwrights `test` command.
 ddev playwright test
 
-# Runs playwright with access to the UI
+# Runs playwright with access to the UI accessible at <siteuri>:9324
 ddev playwright-ui
 
 ## Runs playwright in codegen mode

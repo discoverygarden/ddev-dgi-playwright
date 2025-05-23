@@ -1,0 +1,5 @@
+#!/bin/sh
+#ddev-generated
+
+cd test/playwright || exit 1
+npm ci && npx playwright "$@"
