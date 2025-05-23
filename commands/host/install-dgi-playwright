@@ -4,10 +4,16 @@
 mkdir -p test/playwright
 ddev mutagen sync
 
+# Adding the new dgi-playwright-tests installer type and path
+ddev composer require oomphinc/composer-installers-extender:^2.0
+ddev composer config --merge --json extra.installer-types '["dgi-playwright-tests"]'
+ddev composer config --merge --json extra.installer-paths.test/playwright '["type:dgi-playwright-tests"]'
+
+# Installing the new basic playwright tests
+ddev composer require discoverygarden/playwright-tests:"dev-implementation as 1.x-dev" --dev
+
 # Providing --yes and --quiet flags in order to install without prompts.
 ddev exec -d /var/www/html/test/playwright npx --yes create-playwright@latest --quiet --install-deps
-#cp -R .ddev/playwright/tests test/playwright
-#cp .ddev/playwright/playwright.config.ts test/playwright
 
 # ddev errors out on subsequent builds if we symlink these files. Instead, we
 # copy them each time.
