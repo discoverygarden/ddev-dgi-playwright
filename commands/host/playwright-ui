@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#ddev-generated
 ## Description: Shortcut command to run playwright in the ui
 ## Usage: playwright-ui
 
