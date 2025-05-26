@@ -6,10 +6,6 @@
         "discoverygarden/playwright-tests": "dev-implementation as 1.x-dev"
     },
     "extra": {
-        "#ddev-generated": true,
-        "installer-types": ["dgi-playwright-tests"],
-        "installer-paths": {
-            "test/playwright": ["type:dgi-playwright-tests"]
-        }
+        "#ddev-generated": true
     }
 }

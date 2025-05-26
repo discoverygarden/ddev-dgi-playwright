@@ -7,8 +7,8 @@ name: dgi-playwright
 # pre_install_actions are executed in the context of the target project's root directory.
 pre_install_actions:
   - |
-    mkdir -p test/playwright
-    echo "#ddev-generated" > test/playwright/.gitkeep
+    #ddev-description:Deleting generated composer.playwright.json
+    grep -q "#ddev-generated" composer.playwright.json && rm composer.playwright.json && echo "Removed composer.playwright.json" || echo "Left composer.playwright.json intact."
   # - |
   #   #ddev-description:Check architecture type for incompatible arm64 type
   #   if [ "$(uname -m)" = "arm64" -o "$(uname -m)" = "aarch64" ]; then
@@ -71,7 +71,7 @@ project_files:
   - web-build/kasmvnc.yaml
   - web-build/xstartup
   - config.playwright.yml
-  - playwright/template
+  - playwright/templates
 
 # List of files and directories that are copied into the global .ddev directory
 # DDEV environment variables can be interpolated into these filenames
@@ -105,14 +105,15 @@ post_install_actions:
     fi
   - |
     #ddev-description:Ensure composer merge plugin is installed.
-    ddev composer require "wikimedia/composer-merge-plugin:^2"
+    ddev composer config --no-plugins allow-plugins.wikimedia/composer-merge-plugin true
+    ddev composer require --no-update "wikimedia/composer-merge-plugin:^2"
   - |
     #ddev-description:Configure composer merge plugin.
     ddev composer config --merge --json extra.merge-plugin.include '["composer.playwright.json"]'
     ddev composer config --merge --json extra.merge-plugin.merge-dev "true"
-    ddev composer config --merge --json extra.merge-plugin.merge-extra "true"
-    ddev composer config --merge --json extra.merge-plugin.merge-extra-deep "true"
-    ddev composer update --lock
+  - |
+    #ddev-description:Updating our packages.
+    ddev composer update -w wikimedia/composer-merge-plugin discoverygarden/playwright-tests oomphinc/composer-installers-extender
   # - chmod +x ~/.ddev/commands/web/somecommand
   # - touch ${DDEV_APPROOT}/somefile.${GOOS}.${DDEV_WEBSERVER}
   # - perl -pi -e 's/oldstring/newstring/g' ${DDEV_APPROOT}/.ddev/docker-compose.addon-template.yaml
