@@ -5,9 +5,9 @@ ENV_FILE=".ddev/.env.dgi-playwright"
 
 if ! [ "$(ddev dotenv get $ENV_FILE --composer-installed 2> /dev/null)" == "true" ] ; then
   # Add base .gitignore
-  mkdir -p test
-  echo "playwright" >> test/.gitignore
-  echo "playwright-tests" >> test/.gitignore
+  mkdir -p $DDEV_APPROOT/test
+  echo "playwright" >> $DDEV_APPROOT/test/.gitignore
+  echo "playwright-tests" >> $DDEV_APPROOT/test/.gitignore
 
   # Adding the new dgi-playwright-tests installer type and path
   ddev composer require --no-update "oomphinc/composer-installers-extender:^2.0"
