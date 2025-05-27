@@ -1,5 +1,6 @@
 #!/bin/sh
 #ddev-generated
 
+export NODE_PATH=$NODE_PATH:$DDEV_COMPOSER_ROOT/test/playwright/node_modules
 cd test/playwright || exit 1
 npm ci && npx playwright "$@"

@@ -18,6 +18,8 @@ hooks:
     - exec-host: rm -rf .ddev/web-build/playwright
 web_environment:
   - DISPLAY=:1
+  - DGI_PLAYWRIGHT_TESTS_DIR=$DDEV_COMPOSER_ROOT/test/playwright-tests
+  - DGI_PLAYWRIGHT_TEST_URL=$DDEV_PRIMARY_URL
 # We add the sleep so this doesn't error out when not using playwright.
 web_extra_daemons:
   - name: "kasmvnc"
