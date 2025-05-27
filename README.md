@@ -29,7 +29,7 @@ ddev playwright-ui
 ddev playwright codegen
 ```
 
-## Development
+## Composer Package Type Details
 
 We define and make use of two "types" of composer project:
 * `dgi-playwright-core`: Defining the core Playwright config, including `playwright.config.ts` and including `package.json`/`package-lock.json` indicating the Node.js packages needed; and,
