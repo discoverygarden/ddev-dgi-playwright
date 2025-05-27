@@ -3,8 +3,9 @@
 
 ENV_FILE=".ddev/.env.dgi-playwright"
 
-if ! [ "$(ddev dotenv get $ENV_FILE --composer-installed &> /dev/null)" == "true" ] ; then
+if ! [ "$(ddev dotenv get $ENV_FILE --composer-installed 2> /dev/null)" == "true" ] ; then
   # Add base .gitignore
+  mkdir -p test
   echo "playwright" >> test/.gitignore
   echo "playwright-tests" >> test/.gitignore
 
@@ -26,10 +27,10 @@ if ! [ "$(ddev dotenv get $ENV_FILE --composer-installed &> /dev/null)" == "true
   ddev dotenv set $ENV_FILE --composer-installed true
 fi
 
-if ! diff -q .ddev/web-build/disabled.Dockerfile.playwright .ddev/web-build/Dockerfile.playwright ; then
+if ! diff -q $DDEV_APPROOT/.ddev/web-build/disabled.Dockerfile.playwright $DDEV_APPROOT/.ddev/web-build/Dockerfile.playwright ; then
   # ddev errors out on subsequent builds if we symlink these files. Instead, we
   # copy them each time.
   echo "Rebuilding web service with playwright dependencies..."
-  cp .ddev/web-build/disabled.Dockerfile.playwright .ddev/web-build/Dockerfile.playwright
+  cp $DDEV_APPROOT/.ddev/web-build/disabled.Dockerfile.playwright $DDEV_APPROOT/.ddev/web-build/Dockerfile.playwright
   ddev restart
 fi
