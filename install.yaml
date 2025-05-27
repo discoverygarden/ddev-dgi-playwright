@@ -102,9 +102,6 @@ removal_actions:
 - |
   #ddev-description:Deleting generated Dockerfile.
   if grep "#ddev-generated" web-build/Dockerfile.playwright 2>/dev/null; then rm web-build/Dockerfile.playwright; fi
-- |
-  #ddev-description:Deleting generated composer.playwright.json
-  grep -q "#ddev-generated" ../composer.playwright.json && rm ../composer.playwright.json && echo "Removed composer.playwright.json" || echo "Left composer.playwright.json intact."
 
 # Advanced usage - YAML files can be read in and then used as go template actions
 # in pre_install_actions and post_install_actions
