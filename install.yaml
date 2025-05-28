@@ -6,9 +6,6 @@ name: dgi-playwright
 # DDEV environment variables can be interpolated into these actions
 # pre_install_actions are executed in the context of the target project's root directory.
 pre_install_actions:
-  - |
-    mkdir -p test/playwright
-    echo "#ddev-generated" > test/playwright/.gitkeep
   # - |
   #   #ddev-description:Check architecture type for incompatible arm64 type
   #   if [ "$(uname -m)" = "arm64" -o "$(uname -m)" = "aarch64" ]; then
@@ -102,7 +99,9 @@ post_install_actions:
 # Files listed in project_files section will be automatically removed here if they contain #ddev-generated line.
 # removal_actions are executed in the context of the target project's .ddev directory.
 removal_actions:
-- if grep "#ddev-generated" web-build/Dockerfile.playwright 2>/dev/null; then rm web-build/Dockerfile.playwright; fi
+- |
+  #ddev-description:Deleting generated Dockerfile.
+  if grep "#ddev-generated" web-build/Dockerfile.playwright 2>/dev/null; then rm web-build/Dockerfile.playwright; fi
 
 # Advanced usage - YAML files can be read in and then used as go template actions
 # in pre_install_actions and post_install_actions
