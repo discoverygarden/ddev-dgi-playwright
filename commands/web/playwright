@@ -1,0 +1,18 @@
+#!/bin/bash
+#ddev-generated
+
+#  When initially starting the container, the NSS DB is not populated, so
+# let's pre-populate it so we can `mkcert -install` the cert into it.
+# Note that the DB would be created after attempting to run the tests once,
+# when the browser(s) start.
+NSSDB=$HOME/.pki/nssdb
+if ! [[ -d $NSSDB ]] ; then
+  mkdir -p $NSSDB
+  certutil -d $NSSDB -N --empty-password
+fi
+mkcert -install
+
+export NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem"
+export NODE_PATH=$NODE_PATH:$DDEV_COMPOSER_ROOT/test/playwright/node_modules
+cd test/playwright || exit 1
+npm ci && exec npx playwright "$@"
