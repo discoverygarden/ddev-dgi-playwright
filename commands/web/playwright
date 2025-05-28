@@ -1,6 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 #ddev-generated
 
+#  When initially starting the container, the NSS DB is not populated, so
+# let's pre-populate it so we can `mkcert -install` the cert into it.
+# Note that the DB would be created after attempting to run the tests once,
+# when the browser(s) start.
+NSSDB=$HOME/.pki/nssdb
+if ! [[ -d $NSSDB ]] ; then
+  mkdir -p $NSSDB
+  certutil -d $NSSDB -N --empty-password
+fi
 mkcert -install
 cat - > /tmp/playwright-firefox-policies.json <<-EOF
 {
