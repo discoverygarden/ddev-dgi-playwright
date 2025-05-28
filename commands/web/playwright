@@ -11,7 +11,16 @@ if ! [[ -d $NSSDB ]] ; then
   certutil -d $NSSDB -N --empty-password
 fi
 mkcert -install
-
+cat - > /tmp/playwright-firefox-policies.json <<-EOF
+{
+  "policies": {
+    "Certificates": {
+      "Install": ["$(mkcert -CAROOT)/rootCA.pem"]
+    }
+  }
+}
+EOF
+export PLAYWRIGHT_FIREFOX_POLICIES_JSON=/tmp/playwright-firefox-policies.json
 export NODE_EXTRA_CA_CERTS="$(mkcert -CAROOT)/rootCA.pem"
 export NODE_PATH=$NODE_PATH:$DDEV_COMPOSER_ROOT/test/playwright/node_modules
 cd test/playwright || exit 1
