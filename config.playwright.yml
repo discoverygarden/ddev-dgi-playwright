@@ -21,16 +21,8 @@ web_environment:
   - DGI_PLAYWRIGHT_TESTS_DIR=$DDEV_COMPOSER_ROOT/test/playwright-tests
   - DGI_PLAYWRIGHT_TEST_URL=$DDEV_PRIMARY_URL
 # We add the sleep so this doesn't error out when not using playwright.
-web_extra_daemons:
-  - name: "kasmvnc"
-    command: "kasmvncserver -fg || sleep infinity"
-    directory: /var/www/html
 web_extra_exposed_ports:
   - name: playwright
     container_port: 9323
     http_port: 8323
     https_port: 9324
-  - name: kasmvnc
-    container_port: 8444
-    http_port: 8443
-    https_port: 8444
