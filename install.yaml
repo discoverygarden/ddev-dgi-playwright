@@ -62,11 +62,6 @@ project_files:
   - commands/web/playwright
   - web-build/.gitignore
   - web-build/disabled.Dockerfile.playwright
-  - web-build/Dockerfile.task
-  - web-build/install-task.sh
-  - web-build/install-kasmvnc.sh
-  - web-build/kasmvnc.yaml
-  - web-build/xstartup
   - config.playwright.yml
 
 # List of files and directories that are copied into the global .ddev directory
