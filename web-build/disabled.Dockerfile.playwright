@@ -27,6 +27,7 @@ RUN \
   --mount=type=cache,target=/dot-cache,sharing=locked \
   --mount=type=bind,source=./playwright,target=/playwright \
   <<EOS
+set -e
 sudo -u $username mkdir -p /var/www/html/test
 cp -a /playwright /var/www/html/test
 chown -R $username:$username /var/www/html/test/playwright
