@@ -1,9 +1,4 @@
 #ddev-generated
-# Debian images by default disable apt caching, so turn it on until we finish
-# the build.
-RUN mv /etc/apt/apt.conf.d/docker-clean /etc/apt/docker-clean-disabled
-
-RUN apt-get update
 
 # Install Playwright browsers and system dependencies.
 #
@@ -26,40 +21,29 @@ RUN apt-get update
 #    it is persisted in the image.
 #
 # See https://github.com/ddev/ddev/issues/4727.
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+RUN \
+  --mount=type=cache,target=/var/cache/apt,sharing=locked \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
   --mount=type=cache,target=/dot-cache,sharing=locked \
   --mount=type=bind,source=./playwright,target=/playwright \
-  sudo -u $username mkdir -p /var/www/html/test \
-  && cp -a /playwright /var/www/html/test \
-  && chown -R $username:$username /var/www/html/test/playwright \
-  && chown -R $username:$username /dot-cache \
-  && sudo -u $username ln -s /dot-cache /home/$username/.cache \
-  && cd /var/www/html/test/playwright \
-  && if [ -f yarn.lock ]; then \
-       export JS_PKG_MANAGER=yarn; \
-       sudo -u $username $JS_PKG_MANAGER; \
-     else \
-       export JS_PKG_MANAGER=npx; \
-       sudo -u $username npm install; \
-     fi \
-  && sudo -u $username $JS_PKG_MANAGER playwright install-deps \
-  && sudo -u $username $JS_PKG_MANAGER playwright install \
-  && rm -rf /var/www/html/test/playwright \
-  && rm /home/$username/.cache \
-  && sudo -u $username mkdir -p /home/$username/.cache \
-  && sudo -u $username cp -a /dot-cache/* /home/$username/.cache/
-
-# Install a libnss3-tools/certutil, so certs can be installed for browsers..
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-  --mount=type=cache,target=/var/lib/apt,sharing=locked \
-  sudo apt-get install -y libnss3-tools
-
-# Install a window manager.
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-  --mount=type=cache,target=/var/lib/apt,sharing=locked \
-  sudo apt-get install -y icewm \
-    xauth
-
-# We're done with apt so disable caching again for the final image.
-RUN mv /etc/apt/docker-clean-disabled /etc/apt/apt.conf.d/docker-clean
+  <<EOS
+sudo -u $username mkdir -p /var/www/html/test
+cp -a /playwright /var/www/html/test
+chown -R $username:$username /var/www/html/test/playwright
+chown -R $username:$username /dot-cache
+sudo -u $username ln -s /dot-cache /home/$username/.cache
+cd /var/www/html/test/playwright
+if [ -f yarn.lock ]; then
+  export JS_PKG_MANAGER=yarn;
+  sudo -u $username $JS_PKG_MANAGER;
+else
+  export JS_PKG_MANAGER=npx;
+  sudo -u $username npm install;
+fi
+sudo -u $username $JS_PKG_MANAGER playwright install-deps
+sudo -u $username $JS_PKG_MANAGER playwright install
+rm -rf /var/www/html/test/playwright
+rm /home/$username/.cache
+sudo -u $username mkdir -p /home/$username/.cache
+sudo -u $username cp -a /dot-cache/* /home/$username/.cache/
+EOS
