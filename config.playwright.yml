@@ -52,3 +52,17 @@ webimage_extra_packages:
   - libgbm1
   - libxkbcommon0
   - libasound2
+  #  ╔══════════════════════════════════════════════════════╗
+  #  ║ Host system is missing dependencies to run browsers. ║
+  #  ║ Please install them with the following command:      ║
+  #  ║                                                      ║
+  #  ║     sudo npx playwright install-deps                 ║
+  #  ║                                                      ║
+  #  ║ Alternatively, use apt:                              ║
+  #  ║     sudo apt-get install libxcursor1\                ║
+  #  ║         libgtk-3-0                                   ║
+  #  ║                                                      ║
+  #  ║ <3 Playwright Team                                   ║
+  #  ╚══════════════════════════════════════════════════════╝
+  - libxcursor1
+  - libgtk-3-0
