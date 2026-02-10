@@ -27,7 +27,7 @@ web_extra_exposed_ports:
     http_port: 8323
     https_port: 9324
 webimage_extra_packages:
-  # Install ibnss3-tools/certutil, so certs can be installed for browsers..
+  # Install ibnss3-tools/certutil, so certs can be installed for browsers.
   - libnss3-tools
   # Install a window manager.
   - icewm
