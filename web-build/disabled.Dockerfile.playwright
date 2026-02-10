@@ -1,4 +1,9 @@
 #ddev-generated
+# Debian images by default disable apt caching, so turn it on until we finish
+# the build.
+RUN mv /etc/apt/apt.conf.d/docker-clean /etc/apt/docker-clean-disabled
+
+RUN apt-get update
 
 # Install Playwright browsers and system dependencies.
 #
@@ -48,3 +53,6 @@ rm /home/$username/.cache
 sudo -u $username mkdir -p /home/$username/.cache
 sudo -u $username cp -a /dot-cache/* /home/$username/.cache/
 EOS
+
+# We're done with apt so disable caching again for the final image.
+RUN mv /etc/apt/docker-clean-disabled /etc/apt/apt.conf.d/docker-clean
