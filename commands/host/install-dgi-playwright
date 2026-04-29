@@ -17,12 +17,14 @@ if ! [ "$(ddev dotenv get $ENV_FILE --composer-installed 2> /dev/null)" == "true
 
   # Installing the new basic playwright tests
   ddev composer require --dev --no-update \
-    "discoverygarden/playwright-testing-core:^1" \
-    "discoverygarden/playwright-testing-sample-tests:^1"
+    "discoverygarden/playwright-testing-core:^2" \
+    "discoverygarden/playwright-testing-sample-tests:^2" \
+    "discoverygarden/base-visual-regression:^1"
 
   ddev composer update oomphinc/composer-installers-extender \
     discoverygarden/playwright-testing-core \
-    discoverygarden/playwright-testing-sample-tests
+    discoverygarden/playwright-testing-sample-tests \
+    discoverygarden/base-visual-regression
 
   ddev dotenv set $ENV_FILE --composer-installed true
 fi
