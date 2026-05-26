@@ -26,6 +26,7 @@ if ! [ "$(ddev dotenv get $ENV_FILE --composer-installed 2> /dev/null)" == "true
     discoverygarden/playwright-testing-sample-tests \
     discoverygarden/base-visual-regression
 
+  ddev dotenv set $ENV_FILE '#ddev-generated'
   ddev dotenv set $ENV_FILE --composer-installed true
 fi
 
